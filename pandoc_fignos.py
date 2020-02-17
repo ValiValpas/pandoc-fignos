@@ -83,7 +83,7 @@ warninglevel = 2        # 0 - no warnings; 1 - some warnings; 2 - all warnings
 
 # Processing state variables
 cursec = None  # Current section
-Ntargets = 0   # Number of targets in current section (or document)
+Ntargets = 1   # Number of targets in current section (or document)
 targets = {}   # Global targets tracker
 
 # Processing flags
@@ -172,7 +172,8 @@ def _process_figure(key, value, fmt):
     # Update the current section number
     if attrs['secno'] != cursec:  # The section number changed
         cursec = attrs['secno']   # Update the global section tracker
-        Ntargets = 1              # Resets the global target counter
+        if numbersections:
+            Ntargets = 1              # Resets the global target counter
 
     # Pandoc's --number-sections supports section numbering latex/pdf, html,
     # epub, and docx
